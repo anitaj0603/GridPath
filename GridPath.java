@@ -9,12 +9,24 @@ public class GridPath {
 
     public Location getNextLoc(int row, int col)
     {
-        return null;
+        int below = Integer.MAX_VALUE;
+        if (row < grid.length - 1) below = grid [row + 1][col];
+        int right = Integer.MAX_VALUE;
+        if(col < grid[0].length - 1) right = grid[row][col+1];
+        if(below < right) return new Location (row + 1, col);
+        return new Location(row,col+1);
     }
 
     public int sumPath(int row, int col) 
     {
-        return 0;
+        int sum = grid[row][col];
+        while (row < grid.length - 1 || col < grid[0].length - 1) {
+            Location loc = getNextLoc(row, col);
+            row = loc.getRow();
+            col = loc.getCol();
+            sum += grid[row][col];
+        }
+        return sum;
     }
 
     public String toString()
@@ -43,5 +55,4 @@ public class GridPath {
         }
         return s;
     }
-        
 }
